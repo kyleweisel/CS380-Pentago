@@ -2,6 +2,7 @@ __author__ = 'Kyle Weisel'
 
 
 class BoardBlock:
+
     cells = []
 
     def __init__(self):
@@ -70,7 +71,9 @@ class BoardBlock:
 
 
 class Board:
+
     blocks = []
+    moves = []
 
     def __init__(self):
         self.blocks = [BoardBlock(), BoardBlock(), BoardBlock(), BoardBlock()]
@@ -108,6 +111,46 @@ class Board:
 
         return result
 
+    def initialize(self):
+        with open('game.wei') as f:
+            gameFile = [line.rstrip('\n') for line in f]
+
+        for i in range(0, len(gameFile)):
+
+            parts = gameFile[i].split(' ')
+
+            print parts
+
+    def as2DArray(self):
+
+        product = []
+
+        for i in range(0, 3):
+            line = self.blocks[0].getLine(i) + self.blocks[1].getLine(i)
+            product.append(line)
+
+        for i in range(0, 3):
+            line = self.blocks[2].getLine(i) + self.blocks[3].getLine(i)
+            product.append(line)
+
+        return product
+
+
+class Move:
+
+    boardNum = None
+    cellNum = None
+    rotatedBoardNum = None
+    rotationDirection = None
+
+    def __init__(self):
+        self.boardNum = -1
+        self.cellNum = -1
+        self.rotatedBoardNum = -1
+        self.rotationDirection = -1
+
+
+
 
 board = Board()
 print str(board)
@@ -121,3 +164,6 @@ print str(board)
 board.blocks[3].rotateRight()
 print str(board)
 
+board.initialize()
+
+print str(board.as2DArray()[5])
