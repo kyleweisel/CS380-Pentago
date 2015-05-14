@@ -1,6 +1,64 @@
 __author__ = 'Kyle Weisel'
 
 
+class Analyzer:
+
+    def __init__(self):
+        print "Initializing the analyzer"
+
+    def analyze(self, board):
+
+        boardAsList = board.as2DArray()
+        winners = []
+
+        for i in range(0, 6):
+            for j in range(0, 6):
+                # Get the value of the current square
+                currentValue = boardAsList[i][j]
+
+                # Check to the left - make sure there is room to go 5 places...
+                # TODO: Check these numbers
+                if not (i - 5) < 0:
+                    isWin = True
+                    for k in range(0, 5):
+                        if boardAsList[i-k][j] != currentValue:
+                            isWin = False
+                    if isWin:
+                        winners.append(currentValue)
+
+                # Check to the right - make sure there is room to go 5 places...
+                # TODO: Check these numbers
+                if not (i + 5) > 5:
+                    isWin = True
+                    for k in range(0, 5):
+                        if boardAsList[i+k][j] != currentValue:
+                            isWin = False
+                    if isWin:
+                        winners.append(currentValue)
+
+                # Check to the down - make sure there is room to go 5 places...
+                # TODO: Check these numbers
+                if not (j + 5) > 5:
+                    isWin = True
+                    for k in range(0, 5):
+                        if boardAsList[i][j+k] != currentValue:
+                            isWin = False
+                    if isWin:
+                        winners.append(currentValue)
+
+                # Check to the up - make sure there is room to go 5 places...
+                # TODO: Check these numbers
+                if not (j - 5) < 0:
+                    isWin = True
+                    for k in range(0, 5):
+                        if boardAsList[i][j-k] != currentValue:
+                            isWin = False
+                    if isWin:
+                        winners.append(currentValue)
+
+
+
+
 class BoardBlock:
 
     cells = []
