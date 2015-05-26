@@ -8,8 +8,8 @@ class Move:
     rotatedBoardNum = None
     rotationDirection = None
 
-    def __init__(self):
-        self.boardNum = -1
-        self.cellNum = -1
-        self.rotatedBoardNum = -1
-        self.rotationDirection = -1
+    def __init__(self, bN=-1, cN=-1, rBN=-1, rD=-1):
+        self.boardNum = bN
+        self.cellNum = cN
+        self.rotatedBoardNum = rBN
+        self.rotationDirection = rD
