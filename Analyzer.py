@@ -8,7 +8,7 @@ class Analyzer:
 
     def analyze(self, board):
 
-        boardAsList = board.as2DArray()
+        boardAsList = board.as_2d_array()
         winners = []
 
         breakILoop = False
