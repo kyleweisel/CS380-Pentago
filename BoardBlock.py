@@ -3,9 +3,15 @@ __author__ = 'kyleweisel'
 
 class BoardBlock:
 
+    # Cells are just a list of integers of length 9.
+    # -1 is unused
+    # 0 is selected by player 1
+    # 1 is selected by player 2
+    # Anything else is invalid
     cells = []
 
     def __init__(self):
+        # All cells are initialized to -1
         self.cells = [-1, -1, -1, -1, -1, -1, -1, -1, -1]
 
     def __str__(self):
@@ -42,7 +48,7 @@ class BoardBlock:
             endIndex = startIndex + 3
             return self.cells[startIndex:endIndex]
 
-    def getLineAsString(self, lineNum):
+    def getLineAsPrettyString(self, lineNum):
 
         if lineNum not in [0, 1, 2]:
             return None
@@ -55,6 +61,24 @@ class BoardBlock:
                 temp = self.cells[i]
                 line += "-" if (temp == -1) else str(temp)
                 #line += str(self.cells[i])
+
+                if (i + 1) % 3 != 0:
+                    line += "\t"
+
+            return line
+
+    def getLineAsString(self, lineNum):
+
+        if lineNum not in [0, 1, 2]:
+            return None
+        else:
+            startIndex = lineNum * 3
+            endIndex = startIndex + 3
+            line = ""
+
+            for i in range(startIndex, endIndex):
+                temp = self.cells[i]
+                line += "." if (temp == -1) else str(temp)
 
                 if (i + 1) % 3 != 0:
                     line += "\t"
