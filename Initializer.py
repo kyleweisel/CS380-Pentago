@@ -6,7 +6,7 @@ class Initializer:
     def __init__(self):
         print "Initializing the initializer"
 
-    def initialize_from_file(self, fileName):
+    def initialize_from_file(self, fileName, board):
         with open(fileName) as f:
             gameFile = [line.rstrip('\n') for line in f]
 
@@ -31,9 +31,9 @@ class Initializer:
 
                 player = 0 if (i % 2 == 1) else 1
 
-                self.blocks[int(moveBlock)-1].cells[int(moveCell)-1] = player
+                board.blocks[int(moveBlock)-1].cells[int(moveCell)-1] = player
 
                 if rotationDirection == "L":
-                    self.blocks[int(rotatedBlock)-1].rotateLeft()
+                    board.blocks[int(rotatedBlock)-1].rotateLeft()
                 else:
-                   self.blocks[int(rotatedBlock)-1].rotateRight()
+                   board.blocks[int(rotatedBlock)-1].rotateRight()
