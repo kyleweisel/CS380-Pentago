@@ -2,17 +2,61 @@ __author__ = 'kyleweisel'
 
 from BoardBlock import BoardBlock
 
+
 class Board:
 
     blocks = []
     moves = []
-
+    player1Name = None
+    player2Name = None
     player1Color = "W"
+    playerNextMove = None
 
     def __init__(self):
         self.blocks = [BoardBlock(), BoardBlock(), BoardBlock(), BoardBlock()]
 
     def __str__(self):
+        result = "+---------------+---------------+\n"
+        result += "|            PENTAGO            |\n"
+        result += "+---------------+---------------+\n"
+
+        # Print the first and second block
+        firstLine = "|\t" + self.blocks[0].getLineAsPrettyString(0) + "\t|\t" + self.blocks[1].getLineAsPrettyString(0) + "\t|"
+        secondLine = "|\t" + self.blocks[0].getLineAsPrettyString(1) + "\t|\t" + self.blocks[1].getLineAsPrettyString(1) + "\t|"
+        thirdLine = "|\t" + self.blocks[0].getLineAsPrettyString(2) + "\t|\t" + self.blocks[1].getLineAsPrettyString(2) + "\t|"
+
+        result += firstLine
+        result += "\n"
+        result += secondLine
+        result += "\n"
+        result += thirdLine
+        result += "\n"
+        result += "+---------------+---------------+\n"
+
+        # Print the third and fourth block
+        fourthLine = "|\t" + self.blocks[2].getLineAsPrettyString(0) + "\t|\t" + self.blocks[3].getLineAsPrettyString(0) + "\t|"
+        fifthLine = "|\t" + self.blocks[2].getLineAsPrettyString(1) + "\t|\t" + self.blocks[3].getLineAsPrettyString(1) + "\t|"
+        sixthLine = "|\t" + self.blocks[2].getLineAsPrettyString(2) + "\t|\t" + self.blocks[3].getLineAsPrettyString(2) + "\t|"
+
+        result += fourthLine
+        result += "\n"
+        result += fifthLine
+        result += "\n"
+        result += sixthLine
+        result += "\n"
+        result += "+---------------+---------------+\n"
+
+        # Show the colors on the board properly
+        if self.player1Color == "W":
+            result = result.replace("0", "W")
+            result = result.replace("1", "B")
+        else:
+            result = result.replace("0", "B")
+            result = result.replace("1", "W")
+
+        return result
+
+    def toCompactString(self):
         result = "+---------------+---------------+\n"
         result += "|            PENTAGO            |\n"
         result += "+---------------+---------------+\n"
@@ -43,6 +87,7 @@ class Board:
         result += "\n"
         result += "+---------------+---------------+\n"
 
+        # Show the colors on the board properly
         if self.player1Color == "W":
             result = result.replace("0", "W")
             result = result.replace("1", "B")
@@ -84,8 +129,7 @@ class Board:
                 else:
                    self.blocks[int(rotatedBlock)-1].rotateRight()
 
-
-    def as2DArray(self):
+    def as_2d_array(self):
 
         product = []
 
