@@ -60,7 +60,6 @@ class BoardBlock:
             for i in range(startIndex, endIndex):
                 temp = self.cells[i]
                 line += "-" if (temp == -1) else str(temp)
-                #line += str(self.cells[i])
 
                 if (i + 1) % 3 != 0:
                     line += "\t"
@@ -94,3 +93,7 @@ class BoardBlock:
         oldCells = self.cells[:]
         self.cells = [oldCells[6], oldCells[3], oldCells[0], oldCells[7], oldCells[4], oldCells[1], oldCells[8],
                       oldCells[5], oldCells[2]]
+
+    def cellEmpty(self, cellNum):
+        if cellNum in range(0, len(self.cells)):
+            return self.cells[cellNum] == -1
