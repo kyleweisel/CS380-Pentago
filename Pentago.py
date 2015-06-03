@@ -3,24 +3,26 @@ __author__ = 'Kyle Weisel'
 from Board import Board
 from Analyzer import Analyzer
 
+PLAYER_1 = 1
+PLAYER_2 = 2
+
 
 class Pentago:
 
     board = None
     player1Name = None
     player2Name = None
-    player1Color = "W"
     playerNextMove = None
 
-    # initializes a game witha board
+    # initializes a game with a board
     def __init__(self):
         self.board = Board()
 
     def setPlayer1Color(self, color):
         if color.lower() == "b":
-            self.player1Color = "B"
+            self.board.player1Color = "B"
         else:
-            self.player1Color = "W"
+            self.board.player1Color = "W"
 
     def setPlayer1Name(self, name):
         self.player1Name = name
@@ -35,22 +37,24 @@ class Pentago:
         for i in range(0, len(gameFile)):
 
             # These are the names of the players
-            if i < 2:
-                # Ignore for now
-                print "ignoring"
+            if i == 0:
+                self.player1Name = gameFile[i]
 
-            # These are the colors of the players
-            if 2 <= i < 5:
-                # Ignore these as well
-                print "ignoring"
+            if i == 1:
+                self.player2Name = gameFile[i]
 
-            # These are the moves we care about
+            # Set player 1's color.  We know player 2's has to be the opposite.
+            if i == 2:
+                self.setPlayer1Color(gameFile[i])
+
+            # These are the moves we care about.  We can recreate the state represented in the file from here.
             if i >= 11:
                 moveBlock = gameFile[i][:1]
                 moveCell = gameFile[i][2:3]
                 rotatedBlock = gameFile[i][4:5]
                 rotationDirection = gameFile[i][5:6]
 
+                # Player 1 always goes first
                 player = 0 if (i % 2 == 1) else 1
 
                 self.board.blocks[int(moveBlock)-1].cells[int(moveCell)-1] = player
@@ -120,9 +124,12 @@ class Pentago:
                 print "A valid format was used to enter a move, but the move itself is invalid"
 
     def play(self):
+
+        analyzer = Analyzer()
         isOver = False
 
         while not isOver:
+            isOver = True
 
 
 
@@ -140,4 +147,6 @@ if __name__ == "__main__":
     print "The winner of this game is: " + str(analyzer.analyze(board))
     '''
     p = Pentago()
-    p.readMove()
+    p.initialize_from_file("game.txt")
+    p.setPlayer1Color("b")
+    print p.board
